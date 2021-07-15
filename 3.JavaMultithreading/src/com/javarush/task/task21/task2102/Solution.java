@@ -18,6 +18,7 @@ public class Solution {
     }
 
     public static boolean isModifierSet(int allModifiers, int specificModifier) {
+        // Эх...велосипеды с квадратными колесами)
         boolean result = false;
         if (Modifier.isAbstract(specificModifier)){
             result = Modifier.isAbstract(allModifiers);

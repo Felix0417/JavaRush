@@ -7,6 +7,10 @@ package com.javarush.task.task24.task2407;
 public class Cat implements Pet {
     private String name;
 
+    public String getName() {
+        return name;
+    }
+
     public Cat(String name) {
         this.name = name;
     }
@@ -30,6 +34,21 @@ public class Cat implements Pet {
      * @return экземпляр класса CatPet
      */
     public Sayable toSayable(final int i) {
-        return null;
+        class CatPet implements Sayable {
+
+            @Override
+            public String say() {
+                if (i < 1) {
+                    return getName() + " спит.";
+                } else {
+                    StringBuilder sb = new StringBuilder("");
+                    for (int j = 0; j < i; j++) {
+                        sb.append("я");
+                    }
+                    return getName() + " говорит м" + sb + "у!";
+                }
+            }
+        }
+        return new CatPet();
     }
 }

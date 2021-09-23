@@ -14,6 +14,10 @@ public class Dog implements Pet {
         this.name = name;
     }
 
+    public String getName() {
+        return name;
+    }
+
     /**
      * Если так получилось, что есть готовый класс А (тут SuperDog) с логикой, которую вы хотите использовать.
      * То возможны 3 способа:
@@ -44,6 +48,25 @@ public class Dog implements Pet {
      * @return экземпляр класса DogPet
      */
     public Sayable toSayable(final int i) {
-        return null;
+        class DogPet extends SuperDog implements Sayable{
+
+            @Override
+            public String say() {
+                String form = getSuperQuotes() + getName() + getSuperQuotes();
+                if (i < 1){
+                    return form + " спит.";
+                }
+                else{
+                    StringBuilder sb = new StringBuilder("");
+                    for (int j = 0; j < i; j++) {
+                        sb.append("а");
+                    }
+                    return form + " лает г" + sb + "в! " + formatter.format(new Date());
+                }
+            }
+        }
+        return new DogPet();
     }
+
+
 }

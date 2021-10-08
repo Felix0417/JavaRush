@@ -1,4 +1,26 @@
-taskKey="com.javarush.task.task36.task3608.big01"\n\nMVC (1)
+taskKey="com.javarush.task.task36.task3608.big02"\n\nMVC (2)
+
+1. Создай пакет com.javarush.task.task36.task3608.controller, в котором создай класс Controller.
+Этот класс будет получать запрос от клиента, оповещать Модель об этом, а Модель, в свою очередь, будет обновлять ModelData.
+
+2. Добавь в контроллер поле Model model вместе с сеттером.
+
+3. В контроллере создай публичный метод void onShowAllUsers(), который должен обратиться к модели и инициировать загрузку пользователей.
+
+4. Создай пакет com.javarush.task.task36.task3608.view. В нем создай интерфейс View.
+
+5. В интерфейс View добавь два метода: void refresh(ModelData modelData) и void setController(Controller com.javarush.task.task36.task3608.controller).
+
+
+Требования:
+1.	Класс Controller должен быть создан в пакете com.javarush.task.task36.task3608.controller.
+2.	В классе Controller должно быть создано приватное поле Model model и сеттер для этого поля.
+3.	В классе Controller должен быть создан публичный метод void onShowAllUsers(), в котором у модели должен вызываться метод loadUsers().
+4.	Интерфейс View должен быть создан в пакете com.javarush.task.task36.task3608.view.
+5.	В интерфейсе View должны быть объявлены два метода: void refresh(ModelData modelData) и void setController(Controller com.javarush.task.task36.task3608.controller).
+
+
+MVC (2)
 
 Привет! Эта задача будет на паттерн MVC - Model-View-Controller.
 Мы вместе построим архитектуру используя MVC. Разберись подробно, что и почему нужно реализовывать так, как я тебе покажу.
@@ -24,14 +46,14 @@ private DataSource dataSource;
 
 Напишем приложение, которое будет показывать список пользователей и что-то делать с ними, например, обновлять их данные и удалять.
 
-1. Создай пакет com.javarush.task.task36.task3608.model, в котором создай класс ModelData.
+1. Создай пакет model, в котором создай класс ModelData.
 ModelData - это объект, который будет хранить необходимые данные для отображения на клиенте.
 Создай поле с геттером и сеттером List&lt;User&gt; users - это будет список пользователей для отображения.
 
 2. Используя любую модель должна быть возможность получить все необходимые данные для отображения. Поэтому
-в пакете com.javarush.task.task36.task3608.model создай интерфейс Model, который должен содержать метод ModelData getModelData().
+в пакете model создай интерфейс Model, который должен содержать метод ModelData getModelData().
 
-3. В пакете com.javarush.task.task36.task3608.model создай класс FakeModel, реализующий Model. Он нам понадобится на начальном этапе.
+3. В пакете model создай класс FakeModel, реализующий Model. Он нам понадобится на начальном этапе.
 В нем создай поле ModelData modelData, которое инициализируй объектом. Метод getModelData() должен возвращать значение поля modelData.
 
 4. В интерфейсе Model создай метод void loadUsers().
@@ -43,14 +65,5 @@ User{name=&#39;B&#39;, id=2, level=1}
 Программисты часто мОкают данные на начальном этапе. Получение реальных данных реализуется на последних этапах.
 Мокать - это подменять реальные объекты на хардкоженные, тестовые данные.
 
-
-Требования:
-1.	Класс ModelData должен быть создан в пакете com.javarush.task.task36.task3608.model.
-2.	В классе ModelData должно быть создано приватное поле List&lt;User&gt; users, геттер и сеттер для него.
-3.	Интерфейс Model должен быть создан в пакете com.javarush.task.task36.task3608.model. В интерфейсе Model должен быть объявлен метод ModelData getModelData().
-4.	Класс FakeModel, реализующий интерфейс Model, должен быть создан в пакете com.javarush.task.task36.task3608.model.
-5.	В классе FakeModel должно быть создано и инициализировано приватное поле ModelData modelData.
-6.	В интерфейсе Model должен быть объявлен метод void loadUsers().
-7.	Метод void loadUsers() в классе FakeModel должен инициализировать список пользователей в объекте modelData любыми данными.
 
 

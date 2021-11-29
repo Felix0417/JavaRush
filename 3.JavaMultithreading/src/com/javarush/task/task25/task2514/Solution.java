@@ -14,10 +14,15 @@ public class Solution {
 
         public void run() {
             System.out.println("begin-" + index);
+            Thread.yield();
             System.out.println("end-" + index);
         }
     }
 
     public static void main(String[] args) {
+        YieldRunnable yieldRunnable = new YieldRunnable(1);
+        YieldRunnable yieldRunnable2 = new YieldRunnable(2);
+        yieldRunnable.run();
+        yieldRunnable2.run();
     }
 }

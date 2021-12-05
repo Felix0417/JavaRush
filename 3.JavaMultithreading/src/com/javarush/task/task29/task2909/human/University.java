@@ -38,18 +38,47 @@ public class University extends UniversityPerson {
         super(name, age);
     }
 
-    public Student getStudentWithAverageGrade() {
+    public Student getStudentWithAverageGrade(double d) {
         //TODO:
-        return null;
+        Student student = students.get(0);
+        for(Student s : students){
+            if (s.getAverageGrade() == d){
+                student = s;
+                break;
+            }
+        }
+        return student;
     }
 
-    public Student getStudentWithMaxAverageGrade(double averageGrade) {
+
+    public Student getStudentWithMaxAverageGrade() {
         //TODO:
-        return null;
+        //возможно что студентов не будет вовсе
+        Student student = students.get(0);
+        for(Student s : students){
+            if (s.getAverageGrade() > student.getAverageGrade()){
+                student = s;
+            }
+        }
+        return student;
     }
 
-    public void getStudentWithMinAverageGradeAndExpel() {
+    public Student getStudentWithMinAverageGrade() {
         //TODO:
+        Student student = students.get(0);
+        for(Student s : students){
+            if (s.getAverageGrade() < student.getAverageGrade()){
+                student = s;
+            }
+        }
+        return student;
     }
+
+    public void expel(Student student){
+        students.remove(student);
+    }
+
+
+
 
 }

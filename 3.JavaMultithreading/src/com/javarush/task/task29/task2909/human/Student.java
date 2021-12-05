@@ -1,5 +1,7 @@
 package com.javarush.task.task29.task2909.human;
 
+import org.omg.CosNaming.NamingContextExtPackage.StringNameHelper;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -41,16 +43,14 @@ public class Student extends UniversityPerson {
         averageGrade += 0.2;
     }
 
-    public void setValue(String name, double value) {
-        if (name.equals("averageGrade")) {
-            averageGrade = value;
-            return;
-        }
-        if (name.equals("course")) {
-            course = (int) value;
-            return;
-        }
+    public void setCourse(int value){
+        this.course = value;
     }
+
+    public void setAverageGrade(double value){
+        this.averageGrade = value;
+    }
+
 
     public void setBeginningOfSession(int day, int month, int year) {
         beginningOfSession = new Date(year, month, day);

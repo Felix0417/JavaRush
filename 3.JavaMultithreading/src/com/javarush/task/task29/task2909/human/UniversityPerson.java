@@ -14,4 +14,6 @@ public class UniversityPerson extends Human {
     public void setUniversity(University university) {
         this.university = university;
     }
+
+
 }

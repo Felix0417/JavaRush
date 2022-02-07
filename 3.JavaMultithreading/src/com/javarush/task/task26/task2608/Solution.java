@@ -5,10 +5,10 @@ package com.javarush.task.task26.task2608;
 */
 
 public class Solution {
-    int var1;
-    int var2;
-    int var3;
-    int var4;
+    volatile int var1;
+    volatile int var2;
+    volatile int var3;
+    volatile int var4;
 
     public Solution(int var1, int var2, int var3, int var4) {
         this.var1 = var1;
@@ -18,11 +18,15 @@ public class Solution {
     }
 
     public int getSumOfVar1AndVar2() {
-        return var1 + var2;
+        synchronized (this) {
+            return var1 + var2;
+        }
     }
 
     public int getSumOfVar3AndVar4() {
-        return var3 + var4;
+        synchronized (Solution.this) {
+            return var3 + var4;
+        }
     }
 
     public static void main(String[] args) {

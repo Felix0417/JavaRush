@@ -1,6 +1,7 @@
 package com.javarush.task.task30.task3008;
 
 import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.Map;
@@ -24,6 +25,21 @@ public class Server {
 
         Handler(Socket socket) {
             this.socket = socket;
+        }
+
+        private String serverHandshake(Connection connection) throws IOException, ClassNotFoundException {
+            Message msg;
+            while (true) {
+                connection.send(new Message(MessageType.NAME_REQUEST));
+                msg = connection.receive();
+                if (msg.getType().equals(MessageType.USER_NAME) && !connectionMap.containsKey(msg.getData())
+                        && !msg.getData().equals("")) {
+                    connectionMap.put(msg.getData(), connection);
+                    connection.send(new Message(MessageType.NAME_ACCEPTED));
+                    return msg.getData();
+                }
+            }
+
         }
     }
 

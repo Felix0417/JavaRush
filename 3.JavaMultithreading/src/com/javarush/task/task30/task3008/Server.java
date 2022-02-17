@@ -50,6 +50,19 @@ public class Server {
             }
         }
 
+        private void serverMainLoop(Connection connection, String userName) throws IOException, ClassNotFoundException{
+            Message message;
+            while (true){
+                message = connection.receive();
+                if(message.getType() == MessageType.TEXT){
+                    sendBroadcastMessage(new Message(MessageType.TEXT,
+                            userName + ": " + message.getData()));
+                }else if (message.getType() != MessageType.TEXT){
+                    ConsoleHelper.writeMessage("Принятое сообщение не является текстом");
+                }
+            }
+        }
+
     }
 
     public static void main(String[] args) throws IOException {

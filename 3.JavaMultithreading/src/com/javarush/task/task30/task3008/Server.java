@@ -58,12 +58,31 @@ public class Server {
                     sendBroadcastMessage(new Message(MessageType.TEXT,
                             userName + ": " + message.getData()));
                 }else if (message.getType() != MessageType.TEXT){
-                    ConsoleHelper.writeMessage("Принятое сообщение не является текстом");
+                    ConsoleHelper.writeMessage("принятое сообщение не является текстом");
                 }
             }
         }
 
-    }
+        @Override
+        public void run() {
+            System.out.println(socket.getRemoteSocketAddress());
+            String newUserName = "";
+            try (Connection connection = new Connection(socket)) {
+                newUserName = serverHandshake(connection);
+                sendBroadcastMessage(new Message(MessageType.USER_ADDED, newUserName));
+                notifyUsers(connection,newUserName);
+                serverMainLoop(connection, newUserName);
+                if (newUserName != null){
+                    connectionMap.remove(newUserName);
+                }
+                sendBroadcastMessage(new Message(MessageType.USER_REMOVED, newUserName));
+                ConsoleHelper.writeMessage("Соединение с удаленным адресом закрыто");
+            } catch (IOException | ClassNotFoundException e) {
+                ConsoleHelper.writeMessage(e.getMessage());
+
+                }
+            }
+        }
 
     public static void main(String[] args) throws IOException {
         int serverSock = ConsoleHelper.readInt();

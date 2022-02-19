@@ -11,6 +11,10 @@ public class Client {
     private volatile boolean clientConnected = false;
     protected Connection connection;
 
+    public void setClientConnected(boolean clientConnected) {
+        this.clientConnected = clientConnected;
+    }
+
     protected String getServerAddress() {
         return ConsoleHelper.readString();
     }
@@ -45,7 +49,6 @@ public class Client {
         SocketThread socketThread = getSocketThread();
         getSocketThread().setDaemon(true);
         getSocketThread().start();
-
         try {
             synchronized (this) {
                 wait();
@@ -54,13 +57,11 @@ public class Client {
             ConsoleHelper.writeMessage("Ошибка запуска");
             clientConnected = false;
         }
-
         if (clientConnected) {
             ConsoleHelper.writeMessage("Соединение установлено. Для выхода наберите команду 'exit'.");
         } else {
             ConsoleHelper.writeMessage("Произошла ошибка во время работы клиента.");
         }
-
         while (clientConnected) {
             text = ConsoleHelper.readString();
             if (text.equals("exit")) break;
@@ -72,7 +73,28 @@ public class Client {
 
     }
 
-    public static class SocketThread extends Thread {
+
+    public class SocketThread extends Thread {
+
+        protected void processIncomingMessage(String message){
+            ConsoleHelper.writeMessage(message);
+        }
+
+        protected void informAboutAddingNewUser(String userName){
+            ConsoleHelper.writeMessage(userName + " присоединился к чату.");
+        }
+
+        protected void informAboutDeletingNewUser(String userName){
+            ConsoleHelper.writeMessage(userName + " покинул чат.");
+        }
+
+        protected void notifyConnectionStatusChanged(boolean clientConnected){
+            Client.this.clientConnected = clientConnected;
+            synchronized (Client.this){
+                Client.this.notify();
+            }
+        }
+
 
         @Override
         public void run() {

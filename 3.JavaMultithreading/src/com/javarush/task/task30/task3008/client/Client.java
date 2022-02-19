@@ -1,19 +1,12 @@
 package com.javarush.task.task30.task3008.client;
 
-import com.javarush.task.task30.task3008.Connection;
-import com.javarush.task.task30.task3008.ConsoleHelper;
-import com.javarush.task.task30.task3008.Message;
-import com.javarush.task.task30.task3008.MessageType;
+import com.javarush.task.task30.task3008.*;
 
 import java.io.IOException;
 
 public class Client {
     private volatile boolean clientConnected = false;
     protected Connection connection;
-
-    public void setClientConnected(boolean clientConnected) {
-        this.clientConnected = clientConnected;
-    }
 
     protected String getServerAddress() {
         return ConsoleHelper.readString();
@@ -92,6 +85,33 @@ public class Client {
             Client.this.clientConnected = clientConnected;
             synchronized (Client.this){
                 Client.this.notify();
+            }
+        }
+
+        protected void clientHandshake() throws IOException, ClassNotFoundException{
+            Message message;
+            while (true){
+                message = connection.receive();
+                if (MessageType.NAME_REQUEST.equals(message.getType())){
+                    connection.send(new Message(MessageType.USER_NAME, getUserName()));
+                }else if (MessageType.NAME_ACCEPTED.equals(message.getType())){
+                    notifyConnectionStatusChanged(true);
+                    break;
+                }else throw new IOException("Unexpected MessageType");
+            }
+        }
+
+        protected void clientMainLoop() throws IOException, ClassNotFoundException{
+            Message message;
+            while (true){
+                message = connection.receive();
+                if (MessageType.TEXT.equals(message.getType())){
+                    processIncomingMessage(message.getData());
+                }else if (MessageType.USER_ADDED.equals(message.getType())){
+                    informAboutAddingNewUser(message.getData());
+                }else if (MessageType.USER_REMOVED.equals(message.getType())){
+                    informAboutDeletingNewUser(message.getData());
+                }else throw new IOException("Unexpected MessageType");
             }
         }
 

@@ -87,25 +87,25 @@ public class Server {
         }
 
     public static void main(String[] args) throws IOException {
-//        int serverSock = ConsoleHelper.readInt();
-//        ServerSocket serverSocket = new ServerSocket(serverSock);
-//        System.out.println("Сервер запущен!");
-//
-//        Socket socket;
-//
-//        while (true) {
-//            try {
-//                socket = serverSocket.accept();
-//                new Handler(socket).start();
-//            } catch (Exception e) {
-//                try {
-//                    serverSocket.close();
-//                    break;
-//                } catch (Exception f) {
-//                    f.printStackTrace();
-//                }
-//            }
-//        }
+        int serverSock = ConsoleHelper.readInt();
+        ServerSocket serverSocket = new ServerSocket(serverSock);
+        System.out.println("Сервер запущен!");
+
+        Socket socket;
+
+        while (true) {
+            try {
+                socket = serverSocket.accept();
+                new Handler(socket).start();
+            } catch (Exception e) {
+                try {
+                    serverSocket.close();
+                    break;
+                } catch (Exception f) {
+                    f.printStackTrace();
+                }
+            }
+        }
 
         new Client().run();
     }

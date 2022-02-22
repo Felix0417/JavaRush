@@ -3,6 +3,7 @@ package com.javarush.task.task30.task3008.client;
 import com.javarush.task.task30.task3008.*;
 
 import java.io.IOException;
+import java.net.Socket;
 
 public class Client {
     private volatile boolean clientConnected = false;
@@ -118,6 +119,14 @@ public class Client {
 
         @Override
         public void run() {
+            try {
+                connection = new Connection(new Socket(getServerAddress(), getServerPort()));
+                clientHandshake();
+                clientMainLoop();
+            } catch (IOException | ClassNotFoundException e ) {
+                notifyConnectionStatusChanged(false);
+            }
+
 
         }
     }

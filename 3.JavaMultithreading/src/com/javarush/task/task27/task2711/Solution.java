@@ -7,21 +7,18 @@ CountDownLatch
 */
 
 public class Solution {
-    private final Object lock = new Object();
     private volatile boolean isWaitingForValue = true;
 
     CountDownLatch latch = new CountDownLatch(1);
 
     public void someMethod() throws InterruptedException {
-        synchronized (lock) {
-            while (isWaitingForValue) {
-                lock.wait();
-            }
+        while (isWaitingForValue) {
+            latch.await();
 
             retrieveValue();
 
             isWaitingForValue = false;
-            lock.notify();
+            latch.countDown();
         }
     }
 

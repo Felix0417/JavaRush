@@ -2,7 +2,9 @@ package com.javarush.task.task31.task3110;
 
 import java.io.InputStream;
 import java.nio.file.Files;
+import java.nio.file.OpenOption;
 import java.nio.file.Path;
+import java.nio.file.StandardOpenOption;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
@@ -17,6 +19,7 @@ public class ZipFileManager {
         try (ZipOutputStream zipOutputStream = new ZipOutputStream (Files.newOutputStream(zipFile))) {
             String[] separatedStroke = String.valueOf(source).split("[\\/\\\\]");
             ZipEntry zipEntry = new ZipEntry(separatedStroke[separatedStroke.length - 1]);
+
             zipOutputStream.putNextEntry(zipEntry);
 
             try (InputStream inputStream = Files.newInputStream(source)) {
@@ -24,6 +27,7 @@ public class ZipFileManager {
                     zipOutputStream.write(inputStream.read());
                 }
             }
+
         }
     }
 

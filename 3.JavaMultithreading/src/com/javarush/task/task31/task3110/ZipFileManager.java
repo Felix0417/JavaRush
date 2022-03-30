@@ -30,7 +30,6 @@ public class ZipFileManager {
             } else if (Files.isRegularFile(source)){
                 addNewZipEntry(zipOutputStream, source.getParent(), source.getFileName());
             } else throw new PathIsNotFoundException();
-
         }
     }
 

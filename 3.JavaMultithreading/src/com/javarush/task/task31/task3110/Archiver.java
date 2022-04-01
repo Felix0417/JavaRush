@@ -1,5 +1,6 @@
 package com.javarush.task.task31.task3110;
 
+import com.javarush.task.task31.task3110.command.ZipCreateCommand;
 import com.javarush.task.task31.task3110.exception.WrongZipFileException;
 
 import java.io.File;
@@ -9,6 +10,12 @@ import java.nio.file.Paths;
 
 public class Archiver {
     public static void main(String[] args) throws IOException {
+
+        try {
+            new ZipCreateCommand().execute();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         Operation operation = null;
         do {

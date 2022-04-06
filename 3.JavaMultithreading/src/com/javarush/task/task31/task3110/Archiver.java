@@ -1,5 +1,6 @@
 package com.javarush.task.task31.task3110;
 
+import com.javarush.task.task31.task3110.command.ZipContentCommand;
 import com.javarush.task.task31.task3110.command.ZipCreateCommand;
 import com.javarush.task.task31.task3110.exception.WrongZipFileException;
 

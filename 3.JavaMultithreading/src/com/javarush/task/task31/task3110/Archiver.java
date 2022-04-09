@@ -1,9 +1,6 @@
 package com.javarush.task.task31.task3110;
 
-import com.javarush.task.task31.task3110.command.ZipContentCommand;
-import com.javarush.task.task31.task3110.command.ZipCreateCommand;
-import com.javarush.task.task31.task3110.command.ZipExtractCommand;
-import com.javarush.task.task31.task3110.command.ZipRemoveCommand;
+import com.javarush.task.task31.task3110.command.*;
 import com.javarush.task.task31.task3110.exception.WrongZipFileException;
 
 import java.io.File;
@@ -14,19 +11,11 @@ import java.nio.file.Paths;
 public class Archiver {
     public static void main(String[] args) throws IOException {
 
-        ///home/felix/test1.txt
-//        try {
-//            new ZipCreateCommand().execute();
-//            // C:\Users\Мишаня\Desktop\ZipTest\Test1.pdf
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-
+        // /home/felix/Рабочий стол/Zip
+        //добавлять будем этот файл
+        // /home/felix/Рабочий стол/martin_iden.txt
         try {
-            new ZipRemoveCommand().execute();
-            // /home/felix/Zip
-            // 20210627_193946.jpg
-            // C:\Users\Мишаня\Desktop\ZipTest\Test1.pdf
+            new ZipAddCommand().execute();
         } catch (Exception e) {
             e.printStackTrace();
         }

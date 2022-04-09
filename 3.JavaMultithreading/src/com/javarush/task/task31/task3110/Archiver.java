@@ -3,37 +3,13 @@ package com.javarush.task.task31.task3110;
 import com.javarush.task.task31.task3110.command.*;
 import com.javarush.task.task31.task3110.exception.WrongZipFileException;
 
-import java.io.File;
 import java.io.IOException;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+
 
 public class Archiver {
     public static void main(String[] args) throws IOException {
 
-        // /home/felix/Рабочий стол/Zip
-        //добавлять будем этот файл
-        // /home/felix/Рабочий стол/martin_iden.txt
-        try {
-            new ZipAddCommand().execute();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-//        Operation operation = null;
-//        do {
-//            try {
-//                operation = askOperation();
-//                CommandExecutor.execute(operation);
-//            } catch (WrongZipFileException e) {
-//                ConsoleHelper.writeMessage("Вы не выбрали файл архива или выбрали неверный файл.");
-//            } catch (Exception e) {
-//                ConsoleHelper.writeMessage("Произошла ошибка. Проверьте введенные данные.");
-//            }
-//
-//        } while (operation != Operation.EXIT);
     }
-
 
     public static Operation askOperation() throws IOException {
         ConsoleHelper.writeMessage("");

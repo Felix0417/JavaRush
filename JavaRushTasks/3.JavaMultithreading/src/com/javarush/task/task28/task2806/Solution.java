@@ -3,6 +3,7 @@ package com.javarush.task.task28.task2806;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicInteger;
 
 /* 
 Знакомство с Executors
@@ -11,6 +12,22 @@ import java.util.concurrent.TimeUnit;
 public class Solution {
     public static void main(String[] args) throws InterruptedException {
         //Add your code here
+        ExecutorService service = Executors.newFixedThreadPool(5);
+
+        AtomicInteger atomicInteger = new AtomicInteger(1);
+
+        for (int i = 0; i < 10; i++) {
+            service.submit(new Runnable() {
+                               @Override
+                               public void run() {
+                                   doExpensiveOperation(atomicInteger.getAndIncrement());
+                               }
+                           }
+            );
+        }
+        service.shutdown();
+        service.awaitTermination(5, TimeUnit.SECONDS);
+
 
         /* output example
 pool-1-thread-2, localId=2

@@ -1,6 +1,5 @@
 package com.javarush.task.task28.task2812;
 
-import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -20,7 +19,9 @@ public class Solution {
             });
         }
 
-        executor.shutdownNow();
+        for (Runnable a : executor.shutdownNow()){
+            System.out.println(a.toString() + " was not completed");
+        }
     }
 
     private static void doExpensiveOperation(int localId) {

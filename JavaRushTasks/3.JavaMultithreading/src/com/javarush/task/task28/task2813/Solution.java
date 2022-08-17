@@ -17,7 +17,7 @@ public class Solution {
         FactorialCalculator task = new FactorialCalculator(n);
 
         System.out.println("Submitting Task ...");
-        Future future = threadpool.submit(task);
+        Future<Long> future = threadpool.submit(task);
         System.out.println("The task was submitted successfully");
 
         while (!future.isDone()) {

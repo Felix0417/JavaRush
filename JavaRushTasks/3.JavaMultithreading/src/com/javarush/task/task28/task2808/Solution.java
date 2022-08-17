@@ -43,6 +43,6 @@ public class Solution {
     }
 
     public static Callable<String> getTask(final int i) {
-        return () -> String.valueOf(((long) i * (i + 1))/2);
+        return null;
     }
 }

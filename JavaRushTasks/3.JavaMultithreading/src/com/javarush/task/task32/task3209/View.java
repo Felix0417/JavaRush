@@ -2,9 +2,11 @@ package com.javarush.task.task32.task3209;
 
 import com.javarush.task.task32.task3209.listeners.FrameListener;
 import com.javarush.task.task32.task3209.listeners.TabbedPaneChangeListener;
+import com.javarush.task.task32.task3209.listeners.UndoListener;
 
 import javax.swing.*;
 import javax.swing.border.Border;
+import javax.swing.undo.UndoManager;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -15,6 +17,8 @@ public class View extends JFrame implements ActionListener {
     private JTabbedPane tabbedPane = new JTabbedPane();
     private JTextPane htmlTextPane = new JTextPane();
     private JEditorPane plainTextPane = new JEditorPane();
+    private UndoManager undoManager = new UndoManager();
+    private UndoListener undoListener = new UndoListener(undoManager);
 
     public View(){
         try {
@@ -32,6 +36,9 @@ public class View extends JFrame implements ActionListener {
         this.controller = controller;
     }
 
+    public UndoListener getUndoListener() {
+        return undoListener;
+    }
 
     public void init(){
         initGui();
@@ -80,11 +87,31 @@ public class View extends JFrame implements ActionListener {
 
     }
 
+    public void undo(){
+        try {
+            undoManager.undo();
+        }catch (Exception e){
+            ExceptionHandler.log(e);
+        }
+    }
+
     public boolean canUndo(){
-        return false;
+        return undoManager.canUndo();
+    }
+
+    public void resetUndo(){
+        undoManager.discardAllEdits();
+    }
+
+    public void redo(){
+        try {
+            undoManager.redo();
+        }catch (Exception e){
+            ExceptionHandler.log(e);
+        }
     }
 
     public boolean canRedo(){
-        return false;
+        return undoManager.canRedo();
     }
 }

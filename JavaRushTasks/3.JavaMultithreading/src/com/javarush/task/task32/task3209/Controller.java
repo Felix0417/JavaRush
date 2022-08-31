@@ -5,10 +5,7 @@ import com.javarush.task.task32.task3209.listeners.UndoListener;
 import javax.swing.*;
 import javax.swing.text.html.HTMLDocument;
 import javax.swing.text.html.HTMLEditorKit;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.StringReader;
-import java.io.StringWriter;
+import java.io.*;
 
 public class Controller {
     private View view;
@@ -35,12 +32,32 @@ public class Controller {
         init();
     }
 
-    public void openDocument(){
-
+    public void openDocument() {
+        view.selectHtmlTab();
+        JFileChooser jFileChooser = new JFileChooser();
+        jFileChooser.setFileFilter(new HTMLFileFilter());
+        if (jFileChooser.showOpenDialog(view) == JFileChooser.APPROVE_OPTION) {
+            currentFile = jFileChooser.getSelectedFile();
+            resetDocument();
+            view.setTitle(currentFile.getName());
+            try (FileReader reader = new FileReader(currentFile)) {
+                new HTMLEditorKit().read(reader, document, 0);
+                view.resetUndo();
+            } catch (Exception e) {
+                ExceptionHandler.log(e);
+            }
+        }
     }
 
-    public void saveDocument(){
-
+    public void saveDocument() {
+        view.selectHtmlTab();
+        if (currentFile != null) {
+            try (FileWriter writer = new FileWriter(currentFile)) {
+                new HTMLEditorKit().write(writer, document, 0, document.getLength());
+            } catch (Exception e) {
+                ExceptionHandler.log(e);
+            }
+        }else saveDocumentAs();
     }
 
     public void saveDocumentAs() {

@@ -22,11 +22,15 @@ public class Controller {
     }
 
     public void init(){
-
+        createNewDocument();
     }
 
     public void createNewDocument(){
-
+        view.selectHtmlTab();
+        resetDocument();
+        view.setTitle("Редактор");
+        currentFile = null;
+        init();
     }
 
     public void openDocument(){

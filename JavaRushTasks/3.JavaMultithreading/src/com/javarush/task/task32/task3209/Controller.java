@@ -25,6 +25,27 @@ public class Controller {
 
     }
 
+    public void createNewDocument(){
+
+    }
+
+    public void openDocument(){
+
+    }
+
+    public void saveDocument(){
+
+    }
+
+    public void saveDocumentAs(){
+
+    }
+
+    public void exit(){
+        System.exit(0);
+    }
+
+
     public void resetDocument(){
         UndoListener undoListener = view.getUndoListener();
         if (document != null){
@@ -55,9 +76,7 @@ public class Controller {
         return writer.toString();
     }
 
-    public void exit(){
-        System.exit(0);
-    }
+
 
     public static void main(String[] args) {
         View view1 = new View();

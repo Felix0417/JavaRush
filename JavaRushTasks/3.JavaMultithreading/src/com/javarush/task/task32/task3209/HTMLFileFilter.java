@@ -8,7 +8,9 @@ public class HTMLFileFilter extends FileFilter {
     @Override
     public boolean accept(File f) {
         String name = f.getName().toLowerCase();
-        return f.isDirectory() || name.matches("\\.html?$");
+        return f.isDirectory()
+                || (name.endsWith(".html")
+                || name.endsWith(".htm"));
     }
 
     @Override

@@ -8,13 +8,15 @@ import java.io.IOException;
 public class Restaurant {
     public static void main(String[] args) throws IOException {
         Tablet tablet = new Tablet(0);
+        Cook cook = new Cook("Amigo");
+        tablet.addObserver(cook);
+        cook.addObserver(new Waiter());
+
         tablet.createOrder();
         tablet.createOrder();
         tablet.createOrder();
         tablet.createOrder();
 
-        Cook cook = new Cook("Amigo");
-        tablet.addObserver(cook);
-        cook.addObserver(new Waiter());
+
     }
 }

@@ -12,13 +12,13 @@ import java.util.List;
 import static com.javarush.task.task27.task2712.kitchen.Dish.allDishesToString;
 
 public class ConsoleHelper {
-    static BufferedReader reader = new BufferedReader(new BufferedReader(new InputStreamReader(System.in)));
+    static BufferedReader reader = new BufferedReader(new BufferedReader(new InputStreamReader(System.in)));;
 
-    public static void writeMessage(String message) {
+    public static void writeMessage(String message){
         System.out.println(message);
     }
 
-    public static String readString() {
+    public static String readString(){
         try {
             return reader.readLine();
         } catch (IOException e) {

@@ -17,8 +17,8 @@ public class Order {
 
     @Override
     public String toString() {
-        return dishes != null ?
-                "Your order: " + dishes + " of" + tablet
+        return dishes != null?
+                "Your order: " + dishes + " of " + tablet
                 : "";
     }
 }

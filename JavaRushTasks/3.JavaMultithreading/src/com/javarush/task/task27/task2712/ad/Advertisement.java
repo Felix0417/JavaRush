@@ -32,6 +32,10 @@ public class Advertisement implements Comparable<Advertisement> {
         return amountPerOneDisplaying;
     }
 
+    public int getHits() {
+        return hits;
+    }
+
     public void revalidate() {
         if (this.hits < 1) {
             throw new UnsupportedOperationException();
@@ -42,5 +46,11 @@ public class Advertisement implements Comparable<Advertisement> {
     @Override
     public int compareTo(Advertisement o) {
         return (int) (this.amountPerOneDisplaying - o.amountPerOneDisplaying);
+    }
+
+    @Override
+    public String toString() {
+        return String.format("%s is displaying... %d, %d"
+                , name, amountPerOneDisplaying, amountPerOneDisplaying * 1000 / duration);
     }
 }

@@ -4,6 +4,8 @@ package com.javarush.task.task30.task3002;
 Осваиваем методы класса Integer
 */
 
+import java.math.BigDecimal;
+
 public class Solution {
 
     public static void main(String[] args) {
@@ -15,6 +17,23 @@ public class Solution {
 
     public static String convertToDecimalSystem(String s) {
         //напишите тут ваш код
-        return s;
+        int x;
+        String string = s.substring(0, 2);
+        if (s.startsWith("0")) {
+            switch (string) {
+                case "0x":
+                    x = Integer.parseInt(s.substring(2), 16);
+                    break;
+                case "0b":
+                    x = Integer.parseInt(s.substring(2), 2);
+                    break;
+                default:
+                    x = Integer.parseInt(s, 8);
+            }
+        } else {
+            x = Integer.parseInt(s, 10);
+        }
+
+        return Integer.toString(x, 10);
     }
 }

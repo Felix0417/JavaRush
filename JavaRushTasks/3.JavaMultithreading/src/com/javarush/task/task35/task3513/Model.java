@@ -1,11 +1,14 @@
 package com.javarush.task.task35.task3513;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class Model {
     private static final int FIELD_WIDTH = 4;
     private Tile[][] gameTiles;
+    protected int score;
+    protected int maxTile;
 
     public Model() {
         resetGameTiles();
@@ -37,7 +40,27 @@ public class Model {
                 gameTiles[i][j] = new Tile();
             }
         }
+        score = 0;
+        maxTile = 0;
         addTile();
         addTile();
+    }
+
+    private void compressTiles(Tile[] tiles) {
+        Arrays.sort(tiles, ((o1, o2) -> o2.value == 0 ? -1 : 0));
+    }
+
+    private void mergeTiles(Tile[] tiles) {
+        for (int i = 0; i < tiles.length - 1; i++) {
+            if (tiles[i].value == tiles[i + 1].value) {
+                tiles[i].value *= 2;
+                tiles[i + 1].value = 0;
+                score += tiles[i].value;
+                if (tiles[i].value > maxTile) {
+                    maxTile = tiles[i].value;
+                }
+            }
+        }
+        compressTiles(tiles);
     }
 }

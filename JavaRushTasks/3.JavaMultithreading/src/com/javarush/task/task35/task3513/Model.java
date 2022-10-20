@@ -1,7 +1,6 @@
 package com.javarush.task.task35.task3513;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class Model {
@@ -46,21 +45,53 @@ public class Model {
         addTile();
     }
 
-    private void compressTiles(Tile[] tiles) {
-        Arrays.sort(tiles, ((o1, o2) -> o2.value == 0 ? -1 : 0));
+    private boolean compressTiles(Tile[] tiles) {
+        boolean isChanged = true;
+        boolean arrayBeChanged = false;
+        while (isChanged) {
+            isChanged = false;
+            for (int i = tiles.length - 1; i > 0; i--) {
+                if (tiles[i].isEmpty()) continue;
+                if (tiles[i - 1].isEmpty()) {
+                    Tile swap = tiles[i - 1];
+                    tiles[i - 1] = tiles[i];
+                    tiles[i] = swap;
+                    isChanged = true;
+                    arrayBeChanged = true;
+                    break;
+                }
+            }
+        }
+        return arrayBeChanged;
+
     }
 
-    private void mergeTiles(Tile[] tiles) {
+    private boolean mergeTiles(Tile[] tiles) {
+        boolean changedMerge = false;
         for (int i = 0; i < tiles.length - 1; i++) {
-            if (tiles[i].value == tiles[i + 1].value) {
+            if (tiles[i].value == tiles[i + 1].value && tiles[i].value != 0) {
                 tiles[i].value *= 2;
                 tiles[i + 1].value = 0;
                 score += tiles[i].value;
                 if (tiles[i].value > maxTile) {
                     maxTile = tiles[i].value;
                 }
+                changedMerge = true;
             }
         }
         compressTiles(tiles);
+        return changedMerge;
+    }
+
+    protected void left() {
+        boolean flag = false;
+        for (Tile[] gameTile : gameTiles) {
+            if (mergeTiles(gameTile) | compressTiles(gameTile)) {
+                flag = true;
+            }
+        }
+        if (flag && getEmptyTiles().size() > 0) {
+            addTile();
+        }
     }
 }

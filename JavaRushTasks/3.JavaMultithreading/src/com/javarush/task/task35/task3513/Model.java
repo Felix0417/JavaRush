@@ -33,6 +33,10 @@ public class Model {
         }
     }
 
+    public Model(Tile[][] gameTiles) {
+        this.gameTiles = gameTiles;
+    }
+
     protected void resetGameTiles() {
         this.gameTiles = new Tile[FIELD_WIDTH][FIELD_WIDTH];
         for (int i = 0; i < gameTiles.length; i++) {
@@ -44,6 +48,23 @@ public class Model {
         maxTile = 0;
         addTile();
         addTile();
+    }
+
+    public boolean canMove() {
+        for (int i = 0; i < FIELD_WIDTH - 1; i++) {
+            for (int j = 0; j < FIELD_WIDTH - 1; j++) {
+                if (getEmptyTiles().size() > 0
+                        || gameTiles[i][j].value == gameTiles[i][j + 1].value
+                        || gameTiles[i][j].value == gameTiles[i + 1][j].value) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    public Tile[][] getGameTiles() {
+        return gameTiles;
     }
 
     private boolean compressTiles(Tile[] tiles) {
@@ -64,7 +85,6 @@ public class Model {
             }
         }
         return arrayBeChanged;
-
     }
 
     private boolean mergeTiles(Tile[] tiles) {
@@ -100,7 +120,6 @@ public class Model {
         rotateRightAn90Angle(2);
         left();
         rotateRightAn90Angle(2);
-
     }
 
     protected void up() {
@@ -113,10 +132,9 @@ public class Model {
         rotateRightAn90Angle(1);
         left();
         rotateRightAn90Angle(3);
-
     }
 
-    public void rotateRightAn90Angle(int rotateRange) {
+    private void rotateRightAn90Angle(int rotateRange) {
         Tile[][] rotatedTile = new Tile[FIELD_WIDTH][FIELD_WIDTH];
 
         for (int i = 0; i < FIELD_WIDTH; i++) {
@@ -129,6 +147,5 @@ public class Model {
         if (rotateRange != 1) {
             rotateRightAn90Angle(--rotateRange);
         }
-
     }
 }

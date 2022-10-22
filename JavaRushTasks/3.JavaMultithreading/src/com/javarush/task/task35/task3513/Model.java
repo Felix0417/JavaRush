@@ -1,11 +1,12 @@
 package com.javarush.task.task35.task3513;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class Model {
     private static final int FIELD_WIDTH = 4;
-    private Tile[][] gameTiles;
+    public Tile[][] gameTiles;
     protected int score;
     protected int maxTile;
 
@@ -93,5 +94,41 @@ public class Model {
         if (flag && getEmptyTiles().size() > 0) {
             addTile();
         }
+    }
+
+    protected void right() {
+        rotateRightAn90Angle(2);
+        left();
+        rotateRightAn90Angle(2);
+
+    }
+
+    protected void up() {
+        rotateRightAn90Angle(3);
+        left();
+        rotateRightAn90Angle(1);
+    }
+
+    protected void down() {
+        rotateRightAn90Angle(1);
+        left();
+        rotateRightAn90Angle(3);
+
+    }
+
+    public void rotateRightAn90Angle(int rotateRange) {
+        Tile[][] rotatedTile = new Tile[FIELD_WIDTH][FIELD_WIDTH];
+
+        for (int i = 0; i < FIELD_WIDTH; i++) {
+            for (int j = 0; j < FIELD_WIDTH; j++) {
+                rotatedTile[j][FIELD_WIDTH - 1 - i] = gameTiles[i][j];
+            }
+        }
+
+        gameTiles = Arrays.copyOf(rotatedTile, rotatedTile.length);
+        if (rotateRange != 1) {
+            rotateRightAn90Angle(--rotateRange);
+        }
+
     }
 }

@@ -195,4 +195,26 @@ public class Model {
                 break;
         }
     }
+
+    private boolean hasBoardChanged() {
+        int gameTilesMatch = 0;
+        int previousStatesMatch = 0;
+        for (int i = 0; i < FIELD_WIDTH; i++) {
+            for (int j = 0; j < FIELD_WIDTH; j++) {
+                gameTilesMatch += gameTiles[i][j].value;
+                previousStatesMatch += previousStates.peek()[i][j].value;
+            }
+        }
+        return gameTilesMatch != previousStatesMatch;
+    }
+
+    private MoveEfficiency getMoveEfficiency(Move move) {
+        move.move();
+        MoveEfficiency moveEfficiency = new MoveEfficiency(getEmptyTiles().size(), score, move);
+        if (!hasBoardChanged()) {
+            return new MoveEfficiency(-1, 0, move);
+        }
+        rollback();
+        return moveEfficiency;
+    }
 }

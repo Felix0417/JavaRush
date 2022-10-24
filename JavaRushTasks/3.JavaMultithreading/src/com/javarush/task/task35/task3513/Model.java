@@ -3,12 +3,16 @@ package com.javarush.task.task35.task3513;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Stack;
 
 public class Model {
     private static final int FIELD_WIDTH = 4;
     public Tile[][] gameTiles;
     protected int score;
     protected int maxTile;
+    private Stack<Tile[][]> previousStates = new Stack<>();
+    private Stack<Integer> previousScores = new Stack<>();
+    private boolean isSaveNeeded = true;
 
     public Model() {
         resetGameTiles();
@@ -146,6 +150,20 @@ public class Model {
         gameTiles = Arrays.copyOf(rotatedTile, rotatedTile.length);
         if (rotateRange != 1) {
             rotateRightAn90Angle(--rotateRange);
+        }
+    }
+
+    private void saveState(Tile[][] tiles) {
+        Tile[][] tempTiles = Arrays.copyOf(tiles, tiles.length);
+        previousStates.push(tempTiles);
+        previousScores.push(score);
+        isSaveNeeded = false;
+    }
+
+    public void rollback() {
+        if (!previousStates.isEmpty() && !previousScores.isEmpty()) {
+            this.gameTiles = previousStates.pop();
+            this.score = previousScores.pop();
         }
     }
 }

@@ -109,10 +109,14 @@ public class Model {
     }
 
     protected void left() {
+        if (isSaveNeeded) {
+            saveState(gameTiles);
+        }
         boolean flag = false;
         for (Tile[] gameTile : gameTiles) {
             if (mergeTiles(gameTile) | compressTiles(gameTile)) {
                 flag = true;
+                isSaveNeeded = true;
             }
         }
         if (flag && getEmptyTiles().size() > 0) {
@@ -121,18 +125,21 @@ public class Model {
     }
 
     protected void right() {
+        saveState(gameTiles);
         rotateRightAn90Angle(2);
         left();
         rotateRightAn90Angle(2);
     }
 
     protected void up() {
+        saveState(gameTiles);
         rotateRightAn90Angle(3);
         left();
         rotateRightAn90Angle(1);
     }
 
     protected void down() {
+        saveState(gameTiles);
         rotateRightAn90Angle(1);
         left();
         rotateRightAn90Angle(3);
@@ -154,7 +161,12 @@ public class Model {
     }
 
     private void saveState(Tile[][] tiles) {
-        Tile[][] tempTiles = Arrays.copyOf(tiles, tiles.length);
+        Tile[][] tempTiles = new Tile[FIELD_WIDTH][FIELD_WIDTH];
+        for (int i = 0; i < FIELD_WIDTH; i++) {
+            for (int j = 0; j < FIELD_WIDTH; j++) {
+                tempTiles[i][j] = new Tile(gameTiles[i][j].value);
+            }
+        }
         previousStates.push(tempTiles);
         previousScores.push(score);
         isSaveNeeded = false;

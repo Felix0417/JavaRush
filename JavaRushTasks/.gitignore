@@ -8,6 +8,7 @@ target/
 *.iml
 *.iws
 *.class
+*.info
 *.properties
 *.jar
 
@@ -16,4 +17,4 @@ target/
 /JavaRushPlugin.properties
 /Instruction.png
 /out.log
-
+/out.log.*
